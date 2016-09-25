@@ -36,3 +36,5 @@ Makefile*
 # QtCtreator CMake
 CMakeLists.txt.user
 
+# Annoying macOS Finder
+.DS_Store
