@@ -20,7 +20,6 @@
 
 class TetrisGame;
 class TetrisBlocks;
-enum op;
 
 class TetrisWindow : public QWidget{
     Q_OBJECT
@@ -34,7 +33,8 @@ protected:
     
 private:
     QBasicTimer timer;
-    QFrame frame;
+    QFrame game_f;
+    QFrame next_f;
     
     TetrisGame *game;
 };
