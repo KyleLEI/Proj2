@@ -1,6 +1,7 @@
 //
 //  TetrisGame.h
-//  Proj2
+//  Project2
+//  internal logic of the game
 //
 //  Created by Kyle Lei on 25/9/2016.
 //  Copyright © 2016 LEI Zhao. All rights reserved.
@@ -9,21 +10,30 @@
 #ifndef TetrisGame_h
 #define TetrisGame_h
 
-#include <QtWidgets/QFrame>
-#include <QtGui/QKeyEvent>
 #include <QtCore/QBasicTimer>
+#include "TetrisBlocks.h"
 
-class TetrisGame : public QFrame{
-    Q_OBJECT
+enum op{left=0,right,down,cw,acw};
+
+class TetrisGame{
 public:
     TetrisGame();
     
-protected:
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
+    void move(int);
+    
+    int getLevel() const;
+    int getScore() const;
     
 private:
     QBasicTimer timer;
+    
+    TetrisBlocks cur_blk;
+    TetrisBlocks nxt_blk;
+    
+    bool isStarted;
+    
+    int level;
+    int score;
 };
 
 #endif /* TetrisGame_h */
