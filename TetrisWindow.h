@@ -19,6 +19,8 @@ class TetrisWindow : public QWidget
 public:
     TetrisWindow();
     
+protected:
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
 //private:
 //    QPushButton *quitButton;
 };
