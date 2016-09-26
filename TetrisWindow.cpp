@@ -11,5 +11,3 @@
 TetrisWindow::TetrisWindow(){
     setWindowTitle(tr("Tetris"));
 }
-
-void TetrisWindow::keyPressEvent(QKeyEvent *event){}

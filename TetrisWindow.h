@@ -10,19 +10,13 @@
 #define TetrisWindow_h
 
 #include <QtWidgets/QWidget>
-#include <QtWidgets/QFrame>
 
-class TetrisWindow : public QWidget
-{
+class TetrisWindow : public QWidget{
     Q_OBJECT
     
 public:
     TetrisWindow();
     
-protected:
-    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-//private:
-//    QPushButton *quitButton;
 };
 
 #endif /* TetrisWindow_h */

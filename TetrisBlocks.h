@@ -9,5 +9,9 @@
 #ifndef TetrisBlocks_h
 #define TetrisBlocks_h
 
+class TetrisBlocks{
+public:
+    TetrisBlocks();
+};
 
 #endif /* TetrisBlocks_h */

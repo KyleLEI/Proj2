@@ -9,5 +9,14 @@
 #ifndef TetrisGame_h
 #define TetrisGame_h
 
+#include <QtWidgets/QFrame>
+
+class TetrisGame : public QFrame{
+    Q_OBJECT
+public:
+    TetrisGame();
+protected:
+    void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
+};
 
 #endif /* TetrisGame_h */
