@@ -10,6 +10,7 @@
 #define TetrisWindow_h
 
 #include <QtWidgets/QWidget>
+#include <QtWidgets/QGridLayout>
 
 class TetrisWindow : public QWidget{
     Q_OBJECT

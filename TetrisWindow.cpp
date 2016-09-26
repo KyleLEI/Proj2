@@ -9,5 +9,7 @@
 #include "TetrisWindow.h"
 
 TetrisWindow::TetrisWindow(){
-    setWindowTitle(tr("Tetris"));
+    QGridLayout *layout = new QGridLayout;
+    
+    this->setWindowTitle(tr("Tetris"));
 }
