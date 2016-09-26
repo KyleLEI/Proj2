@@ -13,6 +13,7 @@
 #include <QtCore/QBasicTimer>
 #include "TetrisBlocks.h"
 
+class TetrisBlocks;
 enum op{left=0,right,down,cw,acw};
 
 class TetrisGame{
@@ -25,7 +26,10 @@ public:
     int getScore() const;
     
 private:
+    enum {T_WIDTH=10,T_HEIGHT=20};
     QBasicTimer timer;
+    
+    bool map[T_WIDTH][T_HEIGHT];//record which block has been taken
     
     TetrisBlocks cur_blk;
     TetrisBlocks nxt_blk;

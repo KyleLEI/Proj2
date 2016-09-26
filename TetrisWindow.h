@@ -14,10 +14,12 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtGui/QKeyEvent>
+#include <QtWidgets/QLabel>
 #include <QtCore/QBasicTimer>
 #include "TetrisGame.h"
 
 class TetrisGame;
+class TetrisBlocks;
 enum op;
 
 class TetrisWindow : public QWidget{
@@ -28,7 +30,7 @@ public:
     
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
+    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;//should refresh at a const rate
     
 private:
     QBasicTimer timer;

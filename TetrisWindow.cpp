@@ -12,8 +12,13 @@ TetrisWindow::TetrisWindow(){
     game=new TetrisGame;
     QGridLayout *layout = new QGridLayout;
     
+    QLabel* label=new QLabel("you cheeky basterd");
+    
+    layout->addWidget(label);
+    
     setLayout(layout);
     setWindowTitle(tr("Tetris"));
+    resize(500, 400);
 }
 
 void TetrisWindow::keyPressEvent(QKeyEvent *event){
