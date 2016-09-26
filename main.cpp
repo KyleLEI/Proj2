@@ -6,16 +6,14 @@
 //  Copyright © 2016 LEI Zhao. All rights reserved.
 //
 
-#include <QtGui>
+#include <QtWidgets/QApplication>
 #include "TetrisWindow.h"
 
 int main(int argv, char **args)
 {
     QApplication app(argv, args);
 
-    QWidget window;
-    //awaiting further implementation
-    
+    TetrisWindow window;
     window.show();
     
     return app.exec();

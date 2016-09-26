@@ -6,4 +6,8 @@
 //  Copyright © 2016 LEI Zhao. All rights reserved.
 //
 
-#include "TetrisWindow.hpp"
+#include "TetrisWindow.h"
+
+TetrisWindow::TetrisWindow(){
+    setWindowTitle(tr("Tetris"));
+}

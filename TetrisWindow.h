@@ -9,7 +9,8 @@
 #ifndef TetrisWindow_h
 #define TetrisWindow_h
 
-#include <QtGui>
+#include <QtWidgets/QWidget>
+#include <QtWidgets/QFrame>
 
 class TetrisWindow : public QWidget
 {
@@ -18,8 +19,8 @@ class TetrisWindow : public QWidget
 public:
     TetrisWindow();
     
-private:
-    QPushButton *quitButton;
+//private:
+//    QPushButton *quitButton;
 };
 
 #endif /* TetrisWindow_h */
