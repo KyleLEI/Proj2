@@ -20,7 +20,7 @@ class TetrisGame{
 public:
     TetrisGame();
     
-    void move(int);
+    void move(op);
     
     int getLevel() const;
     int getScore() const;

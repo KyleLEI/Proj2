@@ -10,6 +10,6 @@
 
 TetrisGame::TetrisGame(){}
 
-void TetrisGame::move(int m_op){
+void TetrisGame::move(op m_op){
     return;
 }
