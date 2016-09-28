@@ -15,7 +15,6 @@
 enum TetrisShape { NoShape=0, ZShape, SShape, LineShape, TShape, SquareShape,
                    LShape, MirroredLShape };
 
-enum TetrisColor{};
 class TetrisBlocks
 {
 public:

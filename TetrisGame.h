@@ -23,24 +23,26 @@ public:
     
     void move(op);
     
-    int getLevel() const;
-    int getScore() const;
+    int getLevel() const{return level;}
+    int getScore() const{return score;}
     
-    TetrisBlocks getNextBlock() const;
+    TetrisBlocks getNextBlock() const{return nxt_blk;}
+    Qt::GlobalColor getMap(int x,int y) const;//return the color to window class
     
 private:
     enum {T_WIDTH=10,T_HEIGHT=20};
     QBasicTimer timer;
     
-    bool map[T_WIDTH][T_HEIGHT];//record which block has been taken
+    Qt::GlobalColor map[T_WIDTH][T_HEIGHT];//record the color of each block on the game board
     
     TetrisBlocks cur_blk;
     TetrisBlocks nxt_blk;
     
     bool isStarted;
-    
     int level;
     int score;
+    
+    void refresh();
 };
 
 #endif /* TetrisGame_h */

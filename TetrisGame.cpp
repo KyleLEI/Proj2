@@ -8,7 +8,7 @@
 
 #include "TetrisGame.h"
 
-TetrisGame::TetrisGame(){}
+TetrisGame::TetrisGame():isStarted(false),level(1),score(0){}
 
 void TetrisGame::move(op m_op){
     return;
