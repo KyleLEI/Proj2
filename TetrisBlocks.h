@@ -9,20 +9,22 @@
 #ifndef TetrisBlocks_h
 #define TetrisBlocks_h
 
-#include <QtCore/QtGlobal>
+#include <QtCore/qnamespace.h>//for Qt::GlobalColor
+#include <stdlib.h>
 
-enum TetrisShape { NoShape, ZShape, SShape, LineShape, TShape, SquareShape,
+enum TetrisShape { NoShape=0, ZShape, SShape, LineShape, TShape, SquareShape,
                    LShape, MirroredLShape };
 
+enum TetrisColor{};
 class TetrisBlocks
 {
 public:
-    TetrisBlocks() { setShape(NoShape); }
+    TetrisBlocks(TetrisShape shape=NoShape) { setShape(shape); }
 
     void setRandomShape();
     void setShape(TetrisShape shape);
 
-    TetrisShape shape() const { return pieceShape; }
+    TetrisShape shape() const { return blockShape; }
     int x(int index) const { return coords[index][0]; }
     int y(int index) const { return coords[index][1]; }
     int minX() const;
@@ -31,13 +33,16 @@ public:
     int maxY() const;
     TetrisBlocks rotatedLeft() const;
     TetrisBlocks rotatedRight() const;
+    
+    int getColor() const {return color;}
 
 private:
     void setX(int index, int x) { coords[index][0] = x; }
     void setY(int index, int y) { coords[index][1] = y; }
 
-    TetrisShape pieceShape;
-    int coords[4][2];
+    TetrisShape blockShape;
+    int coords[4][2];//[block num][x/y]
+    int color;
 };
 
 #endif /* TetrisBlocks_h */

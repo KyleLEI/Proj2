@@ -26,6 +26,8 @@ public:
     int getLevel() const;
     int getScore() const;
     
+    TetrisBlocks getNextBlock() const;
+    
 private:
     enum {T_WIDTH=10,T_HEIGHT=20};
     QBasicTimer timer;

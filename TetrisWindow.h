@@ -36,6 +36,8 @@ private:
     QLabel frame;
     QLabel next_frame;
     
+    
+    
     TetrisGame *game;
 };
 

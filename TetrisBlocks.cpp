@@ -8,8 +8,6 @@
 
 #include "TetrisBlocks.h"
 
-#include <stdlib.h>
-
 void TetrisBlocks::setRandomShape()
 {
     setShape(TetrisShape(qrand() % 7 + 1));
@@ -19,22 +17,24 @@ void TetrisBlocks::setShape(TetrisShape shape)
 {
     static const int coordsTable[8][4][2] = {
         { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },//default
-       // { { 0, -1 },  { 0, 0 },   { -1, 0 },  { -1, 1 } },
 	{ { 0, 1 },   { 0, 0 },   { 1, 0 },   { 1, -1 } },//SShape
         { { 0, -1 },  { 0, 0 },   { 1, 0 },   { 1, 1 } },//ZShape
         { { 0, -1 },  { 0, 0 },   { 0, 1 },   { 0, 2 } },//LineShape
-        { { -1, 0 },  { 0, 0 },   { 1, 0 },   { 0, 1 } },//Tshape	
-      //  { { 0, 0 },   { 1, 0 },   { 0, 1 },   { 1, 1 } },
+        { { -1, 0 },  { 0, 0 },   { 1, 0 },   { 0, 1 } },//Tshape
 	{ { 0, 0 },   { 0, -1},   { -1, 0 },  { -1, -1} },//SquareShape
         { { -1, -1 }, { 0, -1 },  { 0, 0 },   { 0, 1 } },//MirroredLShapre
         { { 1, -1 },  { 0, -1 },  { 0, 0 },   { 0, 1 } }//LShape
     };
+    
+    static const int colorTable[8]={
+        Qt::GlobalColor::transparent,Qt::GlobalColor::blue,Qt::GlobalColor::yellow,Qt::GlobalColor::red,Qt::GlobalColor::magenta,Qt::GlobalColor::green,Qt::GlobalColor::darkYellow,Qt::GlobalColor::cyan};
 
     for (int i = 0; i < 4 ; i++) {
         for (int j = 0; j < 2; ++j)
             coords[i][j] = coordsTable[shape][i][j];
     }
-    pieceShape = shape;
+    color=colorTable[shape];
+    blockShape = shape;
 }
 
 int TetrisBlocks::minX() const
@@ -71,11 +71,11 @@ int TetrisBlocks::maxY() const
 
 TetrisBlocks TetrisBlocks::rotatedLeft() const
 {
-    if (pieceShape == SquareShape)
+    if (blockShape == SquareShape)
         return *this;
 
     TetrisBlocks result;
-    result.pieceShape = pieceShape;
+    result.blockShape = blockShape;
     for (int i = 0; i < 4; ++i) {
         result.setX(i, y(i));
         result.setY(i, -x(i));
@@ -85,11 +85,11 @@ TetrisBlocks TetrisBlocks::rotatedLeft() const
 
 TetrisBlocks TetrisBlocks::rotatedRight() const
 {
-    if (pieceShape == SquareShape)
+    if (blockShape == SquareShape)
         return *this;
 
     TetrisBlocks result;
-    result.pieceShape = pieceShape;
+    result.blockShape = blockShape;
     for (int i = 0; i < 4; ++i) {
         result.setX(i, -y(i));
         result.setY(i, x(i));

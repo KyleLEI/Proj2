@@ -39,3 +39,6 @@ CMakeLists.txt.user
 # Annoying macOS Finder
 .DS_Store
 
+#built executable
+Project2
+
