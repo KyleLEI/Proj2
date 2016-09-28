@@ -8,16 +8,14 @@
 
 #include "TetrisBlocks.h"
 
-#include <QtCore>
-
 #include <stdlib.h>
 
-void TetrixBlock::setRandomShape()
+void TetrisBlocks::setRandomShape()
 {
-    setShape(TetrixShape(qrand() % 7 + 1));
+    setShape(TetrisShape(qrand() % 7 + 1));
 }
 
-void TetrixBlock::setShape(TetrixShape shape)
+void TetrisBlocks::setShape(TetrisShape shape)
 {
     static const int coordsTable[8][4][2] = {
         { { 0, 0 },   { 0, 0 },   { 0, 0 },   { 0, 0 } },//default
@@ -39,7 +37,7 @@ void TetrixBlock::setShape(TetrixShape shape)
     pieceShape = shape;
 }
 
-int TetrixBlock::minX() const
+int TetrisBlocks::minX() const
 {
     int min = coords[0][0];
     for (int i = 1; i < 4; ++i)
@@ -47,7 +45,7 @@ int TetrixBlock::minX() const
     return min;
 }
 
-int TetrixBlock::maxX() const
+int TetrisBlocks::maxX() const
 {
     int max = coords[0][0];
     for (int i = 1; i < 4; ++i)
@@ -55,7 +53,7 @@ int TetrixBlock::maxX() const
     return max;
 }
 
-int TetrixBlock::minY() const
+int TetrisBlocks::minY() const
 {
     int min = coords[0][1];
     for (int i = 1; i < 4; ++i)
@@ -63,7 +61,7 @@ int TetrixBlock::minY() const
     return min;
 }
 
-int TetrixBlock::maxY() const
+int TetrisBlocks::maxY() const
 {
     int max = coords[0][1];
     for (int i = 1; i < 4; ++i)
@@ -71,12 +69,12 @@ int TetrixBlock::maxY() const
     return max;
 }
 
-TetrixBlock TetrixBlock::rotatedLeft() const
+TetrisBlocks TetrisBlocks::rotatedLeft() const
 {
     if (pieceShape == SquareShape)
         return *this;
 
-    TetrixBlock result;
+    TetrisBlocks result;
     result.pieceShape = pieceShape;
     for (int i = 0; i < 4; ++i) {
         result.setX(i, y(i));
@@ -85,12 +83,12 @@ TetrixBlock TetrixBlock::rotatedLeft() const
     return result;
 }
 
-TetrixBlock TetrixBlock::rotatedRight() const
+TetrisBlocks TetrisBlocks::rotatedRight() const
 {
     if (pieceShape == SquareShape)
         return *this;
 
-    TetrixBlock result;
+    TetrisBlocks result;
     result.pieceShape = pieceShape;
     for (int i = 0; i < 4; ++i) {
         result.setX(i, -y(i));

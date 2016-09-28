@@ -13,7 +13,8 @@
 #include <QtCore/QBasicTimer>
 #include "TetrisBlocks.h"
 
-class TetrisBlock;
+class TetrisBlocks;
+
 enum op{left=0,right,down,cw,acw};
 
 class TetrisGame{
@@ -31,8 +32,8 @@ private:
     
     bool map[T_WIDTH][T_HEIGHT];//record which block has been taken
     
-    TetrixBlock cur_blk;
-    TetrixBlock nxt_blk;
+    TetrisBlocks cur_blk;
+    TetrisBlocks nxt_blk;
     
     bool isStarted;
     

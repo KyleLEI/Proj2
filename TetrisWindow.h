@@ -10,7 +10,6 @@
 #ifndef TetrisWindow_h
 #define TetrisWindow_h
 
-#include <QtWidgets/QFrame>
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtGui/QKeyEvent>
@@ -20,6 +19,7 @@
 
 class TetrisGame;
 class TetrisBlocks;
+enum op;
 
 class TetrisWindow : public QWidget{
     Q_OBJECT
@@ -29,12 +29,12 @@ public:
     
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
-    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;//should refresh at a const rate
+    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
     
 private:
     QBasicTimer timer;
-    QFrame game_f;
-    QFrame next_f;
+    QLabel frame;
+    QLabel next_frame;
     
     TetrisGame *game;
 };
