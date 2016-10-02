@@ -84,7 +84,7 @@ inline void TetrisGame::check_and_clear_row(){
         level++;
         for(size_t x=0;x<T_WIDTH;x++)
             if(map[x][0]==Qt::GlobalColor::transparent){
-                score=10*combo*combo;
+                score+=10*combo*combo;
                 return;
             }
     }

@@ -22,8 +22,6 @@ class TetrisBlocks;
 enum op;
 
 class TetrisWindow : public QWidget{
-    Q_OBJECT
-    
 public:
     TetrisWindow();
     

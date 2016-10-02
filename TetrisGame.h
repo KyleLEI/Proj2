@@ -21,7 +21,6 @@ class TetrisBlocks;
 enum op{t_left=0,t_right,t_down,t_cw,t_acw};
 
 class TetrisGame:public QWidget{
-    Q_OBJECT
 public:
     TetrisGame();
     
