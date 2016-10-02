@@ -74,11 +74,20 @@ inline void TetrisGame::check_and_clear_row(){
     for(size_t x=0;x<T_WIDTH;x++)
         if(map[x][0]==Qt::GlobalColor::transparent)
             return;//check if bottom row is all transparent
-    
-    for(size_t x=0;x<T_WIDTH;x++)
-        for(size_t y=0;y<T_HEIGHT-1;y++){
-            map[x][y]=map[x][y+1];
-        }
+    int combo=0;
+    while(1){
+        for(size_t x=0;x<T_WIDTH;x++)
+            for(size_t y=0;y<T_HEIGHT-1;y++){
+                map[x][y]=map[x][y+1];
+            }
+        combo++;
+        level++;
+        for(size_t x=0;x<T_WIDTH;x++)
+            if(map[x][0]==Qt::GlobalColor::transparent){
+                score=10*combo*combo;
+                return;
+            }
+    }
 }
 
 inline void TetrisGame::clear_cur(){
