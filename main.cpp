@@ -1,20 +1,19 @@
 //
 //  main.cpp
-//  Project2
+//  QtTimerTryout
 //
-//  Created by Kyle Lei on 25/9/2016.
+//  Created by Kyle Lei on 2/10/2016.
 //  Copyright © 2016 LEI Zhao. All rights reserved.
 //
 
 #include <QtWidgets/QApplication>
-#include "TetrisWindow.h"
+#include "MyWindow.h"
 
-int main(int argv, char **args)
-{
-    QApplication app(argv, args);
-
-    TetrisWindow window;
-    window.show();
+int main(int argc, char * argv[]) {
+    // insert code here...
+    QApplication app(argc,argv);
+    MyWindow *window=new MyWindow;
+    window->show();
     
     return app.exec();
 }
