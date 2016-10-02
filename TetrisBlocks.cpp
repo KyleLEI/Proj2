@@ -10,7 +10,8 @@
 
 void TetrisBlocks::setRandomShape()
 {
-    setShape(TetrisShape(qrand() % 7 + 1));
+    srand(time(NULL));//TODO: find proper Qt random generator
+    setShape(TetrisShape(rand() % 7 + 1));
 }
 
 void TetrisBlocks::setShape(TetrisShape shape)

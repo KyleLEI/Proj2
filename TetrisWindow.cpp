@@ -12,21 +12,24 @@ TetrisWindow::TetrisWindow(){
     game=new TetrisGame;
     QGridLayout *layout = new QGridLayout;
     
-    QLabel* label=new QLabel("you cheeky basterd");
+    frame.setText("You Wanker");
     
-    layout->addWidget(label);
+    layout->addWidget(&frame);
     
     setLayout(layout);
     setWindowTitle(tr("Tetris"));
     resize(500, 400);
+    timer.start(15, this);
 }
 
 void TetrisWindow::keyPressEvent(QKeyEvent *event){
     switch (event->key()) {
         case Qt::Key_Left:
+            frame.setText("Left");
             game->move(t_left);
             break;
         case Qt::Key_Right:
+            frame.setText("Right");
             game->move(t_right);
             break;
         case Qt::Key_Down:
@@ -37,7 +40,9 @@ void TetrisWindow::keyPressEvent(QKeyEvent *event){
             break;
         case Qt::Key_X:
             game->move(t_acw);
+            break;
         case Qt::Key_Up:
+            frame.setText("Start");
             game->start();
     }
 }
@@ -51,5 +56,8 @@ void TetrisWindow::timerEvent(QTimerEvent *event){
         //        } else {
         //            oneLineDown();
         //        }
+        frame.setNum(game->y);
+    }else{
+        QObject::timerEvent(event);
     }
 }

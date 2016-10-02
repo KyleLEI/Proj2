@@ -10,7 +10,6 @@
 #ifndef TetrisGame_h
 #define TetrisGame_h
 
-#include <time.h>
 #include <QtWidgets/QWidget>
 #include <QtCore/QtCore>
 
@@ -32,15 +31,11 @@ public:
     
     TetrisBlocks getNextBlock() const{return nxt_blk;}
     Qt::GlobalColor getMap(int x,int y) const {return map[x][y];}//return the color to window class
-    
-protected:
-    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
-    
-private:
+//private:
     enum {T_WIDTH=10,T_HEIGHT=20};
     QBasicTimer* timer;
     
-    Qt::GlobalColor map[T_WIDTH][T_HEIGHT+2];//record the color of each block on the game board
+    Qt::GlobalColor map[T_WIDTH][T_HEIGHT];//record the color of each block on the game board
     
     TetrisBlocks cur_blk;
     TetrisBlocks nxt_blk;
@@ -54,12 +49,17 @@ private:
     
     inline bool check_clearance(int,int,TetrisBlocks);
     inline void check_and_clear_row();
-    inline void clear_cur();//set all blocks covered by cur_blk to transparent
-    inline void set_cur();//set all blocks covered by cur_blk to its color
+    inline void clear_blk(TetrisBlocks m_blk);//set all blocks covered by blk to transparent
+    inline void set_blk(TetrisBlocks m_blk);//set all blocks covered by cur_blk to its color
     inline void clear_all();
     void move_down();
     void move_LR(op);
     void rotate(op);
+    
+protected:
+    void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
+    
+
 };
 
 #endif /* TetrisGame_h */
