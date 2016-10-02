@@ -23,9 +23,6 @@ void TetrisGame::start(){
 void TetrisGame::move(op m_op){
     switch (m_op) {
         case t_left:
-            move_LR(m_op);
-            break;
-            
         case t_right:
             move_LR(m_op);
             break;
@@ -75,13 +72,12 @@ inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk){
 
 inline void TetrisGame::check_and_clear_row(){
     for(size_t x=0;x<T_WIDTH;x++)
-        if(map[x][0]!=Qt::GlobalColor::transparent)
+        if(map[x][0]==Qt::GlobalColor::transparent)
             return;//check if bottom row is all transparent
     
-    for(size_t x=0;x<T_WIDTH-1;x++)
-        for(size_t y=0;y<T_HEIGHT;y++){
+    for(size_t x=0;x<T_WIDTH;x++)
+        for(size_t y=0;y<T_HEIGHT-1;y++){
             map[x][y]=map[x][y+1];
-            map[x][y+1]=Qt::GlobalColor::transparent;
         }
 }
 
