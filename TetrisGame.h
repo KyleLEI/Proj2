@@ -10,20 +10,22 @@
 #ifndef TetrisGame_h
 #define TetrisGame_h
 
+#include <time.h>
 #include <QtWidgets/QWidget>
-#include <QtCore/QBasicTimer>
+#include <QtCore/QtCore>
 
 #include "TetrisBlocks.h"
 
 class TetrisBlocks;
 
-enum op{left=0,right,down,cw,acw};
+enum op{t_left=0,t_right,t_down,t_cw,t_acw};
 
 class TetrisGame:public QWidget{
     Q_OBJECT
 public:
     TetrisGame();
     
+    void start();
     void move(op);
     
     int getLevel() const{return level;}
@@ -39,16 +41,26 @@ private:
     enum {T_WIDTH=10,T_HEIGHT=20};
     QBasicTimer* timer;
     
-    Qt::GlobalColor map[T_WIDTH][T_HEIGHT];//record the color of each block on the game board
+    Qt::GlobalColor map[T_WIDTH][T_HEIGHT+2];//record the color of each block on the game board
     
     TetrisBlocks cur_blk;
     TetrisBlocks nxt_blk;
+    inline void new_blk();
     
     bool isStarted;
     int level;
     int score;
     
-    void refresh();
+    int x,y;
+    
+    inline bool check_clearance(int,int,TetrisBlocks);
+    inline void check_and_clear_row();
+    inline void clear_cur();//set all blocks covered by cur_blk to transparent
+    inline void set_cur();//set all blocks covered by cur_blk to its color
+    inline void clear_all();
+    void move_down();
+    void move_LR(op);
+    void rotate(op);
 };
 
 #endif /* TetrisGame_h */

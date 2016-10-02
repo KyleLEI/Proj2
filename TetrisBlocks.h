@@ -18,7 +18,8 @@ enum TetrisShape { NoShape=0, ZShape, SShape, LineShape, TShape, SquareShape,
 class TetrisBlocks
 {
 public:
-    TetrisBlocks(TetrisShape shape=NoShape) { setShape(shape); }
+    TetrisBlocks(){setRandomShape();}
+    TetrisBlocks(TetrisShape shape) { setShape(shape); }
 
     void setRandomShape();
     void setShape(TetrisShape shape);
@@ -33,7 +34,7 @@ public:
     TetrisBlocks rotatedLeft() const;
     TetrisBlocks rotatedRight() const;
     
-    int getColor() const {return color;}
+    Qt::GlobalColor getColor() const {return t_color;}
 
 private:
     void setX(int index, int x) { coords[index][0] = x; }
@@ -41,7 +42,7 @@ private:
 
     TetrisShape blockShape;
     int coords[4][2];//[block num][x/y]
-    int color;
+    Qt::GlobalColor t_color;
 };
 
 #endif /* TetrisBlocks_h */

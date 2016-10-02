@@ -26,14 +26,14 @@ void TetrisBlocks::setShape(TetrisShape shape)
         { { 1, -1 },  { 0, -1 },  { 0, 0 },   { 0, 1 } }//LShape
     };
     
-    static const int colorTable[8]={
+    static const Qt::GlobalColor colorTable[8]={
         Qt::GlobalColor::transparent,Qt::GlobalColor::blue,Qt::GlobalColor::yellow,Qt::GlobalColor::red,Qt::GlobalColor::magenta,Qt::GlobalColor::green,Qt::GlobalColor::darkYellow,Qt::GlobalColor::cyan};
 
     for (int i = 0; i < 4 ; i++) {
         for (int j = 0; j < 2; ++j)
             coords[i][j] = coordsTable[shape][i][j];
     }
-    color=colorTable[shape];
+    t_color=colorTable[shape];
     blockShape = shape;
 }
 
@@ -71,9 +71,6 @@ int TetrisBlocks::maxY() const
 
 TetrisBlocks TetrisBlocks::rotatedLeft() const
 {
-    if (blockShape == SquareShape)
-        return *this;
-
     TetrisBlocks result;
     result.blockShape = blockShape;
     for (int i = 0; i < 4; ++i) {
@@ -85,9 +82,6 @@ TetrisBlocks TetrisBlocks::rotatedLeft() const
 
 TetrisBlocks TetrisBlocks::rotatedRight() const
 {
-    if (blockShape == SquareShape)
-        return *this;
-
     TetrisBlocks result;
     result.blockShape = blockShape;
     for (int i = 0; i < 4; ++i) {

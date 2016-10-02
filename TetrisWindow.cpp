@@ -24,19 +24,21 @@ TetrisWindow::TetrisWindow(){
 void TetrisWindow::keyPressEvent(QKeyEvent *event){
     switch (event->key()) {
         case Qt::Key_Left:
-            game->move(left);
+            game->move(t_left);
             break;
         case Qt::Key_Right:
-            game->move(right);
+            game->move(t_right);
             break;
         case Qt::Key_Down:
-            game->move(down);
+            game->move(t_down);
             break;
         case Qt::Key_Z:
-            game->move(cw);
+            game->move(t_cw);
             break;
         case Qt::Key_X:
-            game->move(acw);
+            game->move(t_acw);
+        case Qt::Key_Up:
+            game->start();
     }
 }
 
