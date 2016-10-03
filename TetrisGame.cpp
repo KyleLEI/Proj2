@@ -59,22 +59,22 @@ inline void TetrisGame::new_blk(){
     cur_blk=nxt_blk;
     nxt_blk.setRandomShape();
     x=T_WIDTH/2; y=T_HEIGHT-1-cur_blk.maxY();
-    if(!check_clearance(x, y, cur_blk)){
+    if(!check_clearance(x, y, cur_blk,cur_blk)){
         timer->stop();//game over
         return;
     }
     set_blk(cur_blk);
 }
 
-inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk){
-    clear_blk(m_blk);//remove itself before  checking
+inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk,TetrisBlocks pre_blk){
+    clear_blk(pre_blk);//remove itself before  checking
     for (int i=0;i<4;i++){
         if(map[m_x+m_blk.x(i)][m_y+m_blk.y(i)]!=Qt::GlobalColor::transparent){
-            set_blk(m_blk);
+            set_blk(pre_blk);
             return false;
         }
     }
-    set_blk(cur_blk);
+    set_blk(pre_blk);
     return true;
 }
 
@@ -103,9 +103,9 @@ inline void TetrisGame::clear_blk(TetrisBlocks m_blk){
         map[x+m_blk.x(i)][y+m_blk.y(i)]=Qt::GlobalColor::transparent;
 }
 
-inline void TetrisGame::set_blk(TetrisBlocks cur_blk){
+inline void TetrisGame::set_blk(TetrisBlocks m_blk){
     for (int i=0;i<4;i++)
-        map[x+cur_blk.x(i)][y+cur_blk.y(i)]=cur_blk.getColor();
+        map[x+m_blk.x(i)][y+m_blk.y(i)]=m_blk.getColor();
 }
 
 inline void TetrisGame::clear_all(){
@@ -118,14 +118,14 @@ inline void TetrisGame::clear_all(){
 void TetrisGame::move_LR(op m_op){
     if(isStarted){
         if(m_op==t_left&&(x+cur_blk.minX()-1)>=0){
-            if(check_clearance(x-1, y, cur_blk)){
+            if(check_clearance(x-1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
                 x--;
                 set_blk(cur_blk);
             }
         }
         if(m_op==t_right&&(x+cur_blk.maxX()+1)<T_WIDTH){
-            if(check_clearance(x+1, y, cur_blk)){
+            if(check_clearance(x+1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
                 x++;
                 set_blk(cur_blk);
@@ -135,7 +135,7 @@ void TetrisGame::move_LR(op m_op){
 }
 
 void TetrisGame::move_down(){
-    if(y+cur_blk.minY()==0||!check_clearance(x, y-1, cur_blk)){
+    if(y+cur_blk.minY()==0||!check_clearance(x, y-1, cur_blk,cur_blk)){
         new_blk();
     }else{
         clear_blk(cur_blk);
@@ -146,13 +146,13 @@ void TetrisGame::move_down(){
 
 void TetrisGame::rotate(op m_op){
     if(m_op==t_cw){
-        if(check_clearance(x, y, cur_blk.rotatedRight())){
+        if(check_clearance(x, y, cur_blk.rotatedRight(),cur_blk)){
             clear_blk(cur_blk);
             cur_blk=cur_blk.rotatedRight();
             set_blk(cur_blk);
         }
     }else{
-        if(check_clearance(x, y, cur_blk.rotatedLeft())){
+        if(check_clearance(x, y, cur_blk.rotatedLeft(),cur_blk)){
             clear_blk(cur_blk);
             cur_blk=cur_blk.rotatedLeft();
             set_blk(cur_blk);

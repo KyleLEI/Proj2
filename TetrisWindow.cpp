@@ -15,6 +15,7 @@ TetrisWindow::TetrisWindow(){
     frame.setText("You Wanker");
     
     layout->addWidget(&frame);
+    layout->addWidget(&next_frame);
     
     setLayout(layout);
     setWindowTitle(tr("Tetris"));
@@ -57,6 +58,7 @@ void TetrisWindow::timerEvent(QTimerEvent *event){
         //            oneLineDown();
         //        }
         frame.setNum(game->y);
+        next_frame.setNum(game->x);
     }else{
         QObject::timerEvent(event);
     }

@@ -47,7 +47,7 @@ public:
     
     int x,y;
     
-    inline bool check_clearance(int,int,TetrisBlocks);
+    inline bool check_clearance(int,int,TetrisBlocks,TetrisBlocks);
     inline void check_and_clear_row();
     inline void clear_blk(TetrisBlocks m_blk);//set all blocks covered by blk to transparent
     inline void set_blk(TetrisBlocks m_blk);//set all blocks covered by cur_blk to its color
