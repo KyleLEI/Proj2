@@ -10,8 +10,8 @@
 
 void TetrisBlocks::setRandomShape()
 {
-    srand(time(NULL));//TODO: find proper Qt random generator
-    setShape(TetrisShape(rand() % 7 + 1));
+    qsrand(time(NULL));//TODO: find proper Qt random generator
+    setShape(TetrisShape(qrand() % 7 + 1));
 }
 
 void TetrisBlocks::setShape(TetrisShape shape)
@@ -28,7 +28,9 @@ void TetrisBlocks::setShape(TetrisShape shape)
     };
     
     static const Qt::GlobalColor colorTable[8]={
-        Qt::GlobalColor::transparent,Qt::GlobalColor::blue,Qt::GlobalColor::yellow,Qt::GlobalColor::red,Qt::GlobalColor::magenta,Qt::GlobalColor::green,Qt::GlobalColor::darkYellow,Qt::GlobalColor::cyan};
+        Qt::GlobalColor::transparent,Qt::GlobalColor::blue,Qt::GlobalColor::yellow,Qt::GlobalColor::red,
+            Qt::GlobalColor::magenta,Qt::GlobalColor::green,Qt::GlobalColor::darkYellow,
+            Qt::GlobalColor::cyan};
 
     for (int i = 0; i < 4 ; i++) {
         for (int j = 0; j < 2; ++j)

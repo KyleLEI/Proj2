@@ -110,7 +110,7 @@ inline void TetrisGame::set_blk(TetrisBlocks m_blk){
 
 inline void TetrisGame::clear_all(){
     for(size_t w=0;w<T_WIDTH;w++){
-        for(size_t h=0;h<T_HEIGHT+4;h++)
+        for(size_t h=0;h<T_HEIGHT;h++)
             map[w][h]=Qt::GlobalColor::transparent;//transparent means empty
     }
 }
@@ -144,7 +144,7 @@ void TetrisGame::move_down(){
     }
 }
 
-void TetrisGame::rotate(op m_op){
+void TetrisGame::rotate(op m_op){//TODO: check if touches the margin
     if(m_op==t_cw){
         if(check_clearance(x, y, cur_blk.rotatedRight(),cur_blk)){
             clear_blk(cur_blk);

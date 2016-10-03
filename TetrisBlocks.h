@@ -10,7 +10,6 @@
 #define TetrisBlocks_h
 
 #include <QtCore/qnamespace.h>//for Qt::GlobalColor
-#include <stdlib.h>
 #include <time.h>
 
 enum TetrisShape { NoShape=0, ZShape, SShape, LineShape, TShape, SquareShape,
