@@ -13,6 +13,7 @@
 #include <QtWidgets/QWidget>
 #include <QtWidgets/QGridLayout>
 #include <QtGui/QKeyEvent>
+#include <QtGui/QPainter>
 #include <QtWidgets/QLabel>
 #include <QtCore/QBasicTimer>
 #include "TetrisGame.h"
@@ -30,9 +31,10 @@ protected:
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
     
 private:
+    int Level, Score;
     QBasicTimer timer;
-    QLabel frame;
-    QLabel next_frame;
+    QLabel* Level_Dis;
+    QLabel* Score_Dis;
     
     
     
