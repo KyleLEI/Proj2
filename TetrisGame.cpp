@@ -58,10 +58,11 @@ void TetrisGame::timerEvent(QTimerEvent *event){
 inline void TetrisGame::new_blk(){
     cur_blk=nxt_blk;
     nxt_blk.setRandomShape();
-    x=T_WIDTH/2; y=T_HEIGHT-1-cur_blk.maxY();
+    x=T_WIDTH/2; y=T_HEIGHT-3;
     if(!check_clearance(x, y, cur_blk,cur_blk)){
-        timer->stop();//game over
-        return;
+        level=1;
+        score=0;
+        clear_all();
     }
     set_blk(cur_blk);
 }
@@ -69,6 +70,10 @@ inline void TetrisGame::new_blk(){
 inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk,TetrisBlocks pre_blk){
     clear_blk(pre_blk);//remove itself before  checking
     for (int i=0;i<4;i++){
+        if(m_x+m_blk.maxX()>=T_WIDTH||m_x+m_blk.minX()<0){//check margin and prevent segfault
+            set_blk(pre_blk);
+            return false;
+        }
         if(map[m_x+m_blk.x(i)][m_y+m_blk.y(i)]!=Qt::GlobalColor::transparent){
             set_blk(pre_blk);
             return false;
@@ -78,53 +83,56 @@ inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk,Tetri
     return true;
 }
 
-inline void TetrisGame::check_and_clear_row(){//TODO: check other rows
-    for(size_t x=0;x<T_WIDTH;x++)
-        if(map[x][0]==Qt::GlobalColor::transparent)
-            return;//check if bottom row is all transparent
+inline void TetrisGame::check_and_clear_row(){
     int combo=0;
-    while(1){
-        for(size_t x=0;x<T_WIDTH;x++)
-            for(size_t y=0;y<T_HEIGHT-1;y++){
-                map[x][y]=map[x][y+1];
+    for (size_t row=0;row<T_HEIGHT;++row){
+        bool isFull=true;
+        for(size_t col=0;col<T_WIDTH;++col){
+            if(map[col][row]==Qt::GlobalColor::transparent){
+                isFull=false;
+                break;//break column scan
             }
-        combo++;
-        level++;
-        for(size_t x=0;x<T_WIDTH;x++)
-            if(map[x][0]==Qt::GlobalColor::transparent){
-                score+=10*combo*combo;
-                return;
-            }
+        }
+        
+        if(isFull){//if indeed full, move everything down and start increasing combo
+            row--;//decrease row to allow this row to be checked again for fullness
+            combo++;
+            level++;
+            for(size_t m_x=0;m_x<T_WIDTH;++m_x)
+                for(size_t m_y=0;m_y<T_HEIGHT-1;++m_y)
+                    map[m_x][m_y]=map[m_x][m_y+1];
+        }
     }
+    score+=10*combo*combo;
 }
 
 inline void TetrisGame::clear_blk(TetrisBlocks m_blk){
-    for (int i=0;i<4;i++)
+    for (int i=0;i<4;++i)
         map[x+m_blk.x(i)][y+m_blk.y(i)]=Qt::GlobalColor::transparent;
 }
 
 inline void TetrisGame::set_blk(TetrisBlocks m_blk){
-    for (int i=0;i<4;i++)
+    for (int i=0;i<4;++i)
         map[x+m_blk.x(i)][y+m_blk.y(i)]=m_blk.getColor();
 }
 
 inline void TetrisGame::clear_all(){
-    for(size_t w=0;w<T_WIDTH;w++){
-        for(size_t h=0;h<T_HEIGHT;h++)
+    for(size_t w=0;w<T_WIDTH;++w){
+        for(size_t h=0;h<T_HEIGHT;++h)
             map[w][h]=Qt::GlobalColor::transparent;//transparent means empty
     }
 }
 
 void TetrisGame::move_LR(op m_op){
     if(isStarted){
-        if(m_op==t_left&&(x+cur_blk.minX()-1)>=0){
+        if(m_op==t_left){
             if(check_clearance(x-1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
                 x--;
                 set_blk(cur_blk);
             }
         }
-        if(m_op==t_right&&(x+cur_blk.maxX()+1)<T_WIDTH){
+        if(m_op==t_right){
             if(check_clearance(x+1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
                 x++;
@@ -144,7 +152,7 @@ void TetrisGame::move_down(){
     }
 }
 
-void TetrisGame::rotate(op m_op){//TODO: check if touches the margin
+void TetrisGame::rotate(op m_op){
     if(m_op==t_cw){
         if(check_clearance(x, y, cur_blk.rotatedRight(),cur_blk)){
             clear_blk(cur_blk);
