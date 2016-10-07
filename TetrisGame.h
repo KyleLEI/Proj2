@@ -31,7 +31,8 @@ public:
     
     TetrisBlocks getNextBlock() const{return nxt_blk;}
     Qt::GlobalColor getMap(int x,int y) const {return map[x][y];}//return the color to window class
-//private:
+    
+private:
     enum {T_WIDTH=10,T_HEIGHT=20};
     QBasicTimer* timer;
     
@@ -58,7 +59,6 @@ public:
     
 protected:
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
-    
 
 };
 

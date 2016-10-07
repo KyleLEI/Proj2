@@ -131,8 +131,7 @@ void TetrisGame::move_LR(op m_op){
                 x--;
                 set_blk(cur_blk);
             }
-        }
-        if(m_op==t_right){
+        }else{
             if(check_clearance(x+1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
                 x++;
@@ -143,12 +142,14 @@ void TetrisGame::move_LR(op m_op){
 }
 
 void TetrisGame::move_down(){
-    if(y+cur_blk.minY()==0||!check_clearance(x, y-1, cur_blk,cur_blk)){
-        new_blk();
-    }else{
-        clear_blk(cur_blk);
-        y--;
-        set_blk(cur_blk);
+    if(isStarted){
+        if(y+cur_blk.minY()==0||!check_clearance(x, y-1, cur_blk,cur_blk)){
+            new_blk();
+        }else{
+            clear_blk(cur_blk);
+            y--;
+            set_blk(cur_blk);
+        }
     }
 }
 
