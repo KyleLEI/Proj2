@@ -35,9 +35,10 @@ private:
     QBasicTimer timer;
     QLabel* Level_Dis;
     QLabel* Score_Dis;
-    
-    
-    
+    QLabel* Bg_Dis;
+    QImage image; 
+    //QPainter* painter; 
+   
     TetrisGame *game;
 };
 

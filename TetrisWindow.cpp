@@ -12,15 +12,23 @@ TetrisWindow::TetrisWindow(){
     game=new TetrisGame;
     QGridLayout *layout = new QGridLayout;
     Level_Dis = new QLabel;
-    Score_Dis = new QLabel;    
+    Score_Dis = new QLabel;
+    Bg_Dis = new QLabel;
+    Level_Dis->setText("Level");
+    Score_Dis->setText("Score");
    // frame.setText("You Wanker");
-    
+    image.load("background.bmp");
+    Bg_Dis->setPixmap(QPixmap::fromImage(image)); 
+    Bg_Dis->show(); 
+
    // layout->addWidget(&frame);
    // layout->addWidget(&next_frame);
+    layout->addWidget(Bg_Dis); 
     layout->addWidget(Level_Dis);
     layout->addWidget(Score_Dis);
-
+   //layout->addWidget(Bg_Dis);   
     setLayout(layout);
+
     setWindowTitle(tr("Tetris"));
     resize(500, 400);
     timer.start(15, this);
