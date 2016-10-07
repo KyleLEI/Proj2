@@ -78,7 +78,7 @@ inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk,Tetri
     return true;
 }
 
-inline void TetrisGame::check_and_clear_row(){
+inline void TetrisGame::check_and_clear_row(){//TODO: check other rows
     for(size_t x=0;x<T_WIDTH;x++)
         if(map[x][0]==Qt::GlobalColor::transparent)
             return;//check if bottom row is all transparent
