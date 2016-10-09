@@ -134,7 +134,7 @@ void TetrisWindow::timerEvent(QTimerEvent *event){
 }
 
 void TetrisWindow::paintEvent(QPaintEvent *event) {
-  // image.load("background.bmp"
+
         QWidget::paintEvent(event);
 
         image.load("background.bmp");
@@ -143,7 +143,7 @@ void TetrisWindow::paintEvent(QPaintEvent *event) {
 	for (int i=0;i<10;i++){
    	   for (int j=0;j<20;j++){
         	 if (game->getMap(i,j)!=Qt::GlobalColor::transparent){
-            drawSquare(painter_win,i,j,game->getMap(i,j));
+            drawSquare(painter_win,i*squareWidth,(19-j)*squareHeight,game->getMap(i,j));
        }
     }
  }

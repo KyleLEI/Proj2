@@ -41,7 +41,7 @@ private:
     QLabel* Bg_Dis;
     QLabel* Next_Dis;
     TetrisBlocks nextPiece;
-    const int squareHeight = 10, squareWidth = 10;
+    const int squareHeight = 20, squareWidth = 20;
     QImage image; 
     QPainter painter_win;    
     
