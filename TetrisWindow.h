@@ -32,7 +32,7 @@ protected:
    // void UpdateWindow(); 
    // void DrawSquare();
    // void UpdateNext();
- 
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE; 
 private:
     int Level, Score;
     QBasicTimer timer;
@@ -43,9 +43,10 @@ private:
     TetrisBlocks nextPiece;
     const int squareHeight = 10, squareWidth = 10;
     QImage image; 
-    //QPainter* painter; 
-   
+    QPainter painter_win;    
+    
     TetrisGame *game;
+
     void UpdateWindow();
     void drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor SquareColor);
     void UpdateNext();
