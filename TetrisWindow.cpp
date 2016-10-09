@@ -16,6 +16,7 @@ TetrisWindow::TetrisWindow(){
     Level_Dis = new QLabel;
     Score_Dis = new QLabel;
     Bg_Dis = new QLabel;
+    Next_Dis = new QLabel;
     Level_Dis->setText("Level");
     Score_Dis->setText("Score");
     // frame.setText("You Wanker");
@@ -70,7 +71,8 @@ void TetrisWindow::UpdateWindow() {
 
 void TetrisWindow::UpdateNext(){
 
-    nextPiece = game->getNextBlock(); 
+    nextPiece = game->getNextBlock();
+ 
     int dx = nextPiece.maxX() - nextPiece.minX() + 1;
     int dy = nextPiece.maxY() - nextPiece.minY() + 1;
 
@@ -94,10 +96,10 @@ void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor S
   //      0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
     //};
 
-    QColor color;
+   // QColor color;
     painter.fillRect(x + 1, y + 1, squareWidth - 2, squareHeight - 2, SquareColor);
 
-    painter.setPen(color.dark());
+    painter.setPen(Qt::black);
     painter.drawLine(x, y + squareHeight - 1, x, y);
     painter.drawLine(x, y, x + squareWidth - 1, y);
     painter.drawLine(x + 1, y + squareHeight - 1,
