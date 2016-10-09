@@ -29,13 +29,18 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
-    
+    void UpdateWindow(); 
+    void DrawSquare();
+    void UpdateNext();
+ 
 private:
     int Level, Score;
     QBasicTimer timer;
     QLabel* Level_Dis;
     QLabel* Score_Dis;
     QLabel* Bg_Dis;
+    QLabel* Next_Dis;
+
     QImage image; 
     //QPainter* painter; 
    
