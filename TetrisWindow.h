@@ -29,9 +29,9 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
-    void UpdateWindow(); 
-    void DrawSquare();
-    void UpdateNext();
+   // void UpdateWindow(); 
+   // void DrawSquare();
+   // void UpdateNext();
  
 private:
     int Level, Score;
@@ -40,11 +40,15 @@ private:
     QLabel* Score_Dis;
     QLabel* Bg_Dis;
     QLabel* Next_Dis;
-
+    TetrisBlocks nextPiece;
+    const int squareHeight = 10, squareWidth = 10;
     QImage image; 
     //QPainter* painter; 
    
     TetrisGame *game;
+    void UpdateWindow();
+    void drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor SquareColor);
+    void UpdateNext();
 };
 
 #endif /* TetrisWindow_h */

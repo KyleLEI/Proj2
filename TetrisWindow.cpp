@@ -9,6 +9,8 @@
 #include "TetrisWindow.h"
 
 TetrisWindow::TetrisWindow(){
+   // squareHeight = 10;
+   // squareWidth = 10;
     game=new TetrisGame;
     QGridLayout *layout = new QGridLayout;
     Level_Dis = new QLabel;
@@ -31,8 +33,6 @@ TetrisWindow::TetrisWindow(){
     setLayout(layout);
 
     setWindowTitle(tr("Tetris"));
-    resize(500, 400);
-    timer.start(15, this);
 }
 
 void TetrisWindow::keyPressEvent(QKeyEvent *event){
@@ -61,44 +61,49 @@ void TetrisWindow::keyPressEvent(QKeyEvent *event){
 }
 
 void TetrisWindow::UpdateWindow() {
-    
+  for (int i=0;i<30;i++){
+	for (int j=0;j<30;j++ ){
+	
+}
+} 
 }
 
 void TetrisWindow::UpdateNext(){
 
-    nextPiece = game.getNextBlock(); 
+    nextPiece = game->getNextBlock(); 
     int dx = nextPiece.maxX() - nextPiece.minX() + 1;
     int dy = nextPiece.maxY() - nextPiece.minY() + 1;
 
-    QPixmap pixmap(dx * squareWidth(), dy * squareHeight());
+    QPixmap pixmap(dx * squareWidth, dy * squareHeight);
     QPainter painter(&pixmap);
-    painter.fillRect(pixmap.rect(), nextPieceLabel->palette().background());
+    painter.fillRect(pixmap.rect(), Next_Dis->palette().background());
 
     for (int i = 0; i < 4; ++i) {
         int x = nextPiece.x(i) - nextPiece.minX();
         int y = nextPiece.y(i) - nextPiece.minY();
-        drawSquare(painter, x * squareWidth(), y * squareHeight(),nextPiece.shape());
+        drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
     }
     Next_Dis->setPixmap(pixmap);
 }
 
-void TetrixWindow::drawSquare(QPainter &painter, int x, int y, TetrixShape shape)
+void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor SquareColor)
 {
-    static const QRgb colorTable[8] = {
-        0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
-        0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
-    };
 
-    QColor color = colorTable[int(shape)];
-    painter.fillRect(x + 1, y + 1, squareWidth() - 2, squareHeight() - 2,color);
+   // static const QRgb colorTable[8] = {
+   //     0x000000, 0xCC6666, 0x66CC66, 0x6666CC,
+  //      0xCCCC66, 0xCC66CC, 0x66CCCC, 0xDAAA00
+    //};
+
+    QColor color;
+    painter.fillRect(x + 1, y + 1, squareWidth - 2, squareHeight - 2, SquareColor);
 
     painter.setPen(color.dark());
-    painter.drawLine(x, y + squareHeight() - 1, x, y);
-    painter.drawLine(x, y, x + squareWidth() - 1, y);
-    painter.drawLine(x + 1, y + squareHeight() - 1,
-                     x + squareWidth() - 1, y + squareHeight() - 1);
-    painter.drawLine(x + squareWidth() - 1, y + squareHeight() - 1,
-                     x + squareWidth() - 1, y + 1);
+    painter.drawLine(x, y + squareHeight - 1, x, y);
+    painter.drawLine(x, y, x + squareWidth - 1, y);
+    painter.drawLine(x + 1, y + squareHeight - 1,
+                     x + squareWidth - 1, y + squareHeight - 1);
+    painter.drawLine(x + squareWidth - 1, y + squareHeight - 1,
+                     x + squareWidth - 1, y + 1);
 
 }
 
