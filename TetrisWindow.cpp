@@ -64,21 +64,6 @@ void TetrisWindow::keyPressEvent(QKeyEvent *event){
     }
 }
 
-void TetrisWindow::UpdateWindow() {
-//	image.load("background.bmp");
-//	QPainter painter_win(&image);
-  for (int i=0;i<10;i++){
-	for (int j=0;j<20;j++ ){
-	if (game->getMap(i,j)!=Qt::GlobalColor::transparent){
-	drawSquare(painter_win,i,j,game->getMap(i,j));
-}	
-}
-}
-        Bg_Dis->setPixmap(QPixmap::fromImage(image));
-        Bg_Dis->show();
-}
-
-
 void TetrisWindow::UpdateNext(){
 
     nextPiece = game->getNextBlock();

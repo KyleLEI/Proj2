@@ -47,7 +47,7 @@ private:
     
     TetrisGame *game;
 
-    void UpdateWindow();
+   // void UpdateWindow();
     void drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor SquareColor);
     void UpdateNext();
 };
