@@ -20,6 +20,7 @@
 
 class TetrisGame;
 class TetrisBlocks;
+enum TetrisShape;
 enum op;
 
 class TetrisWindow : public QWidget{
@@ -29,12 +30,8 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
-   // void UpdateWindow(); 
-   // void DrawSquare();
-   // void UpdateNext();
     void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE; 
 private:
-    int Level, Score;
     QBasicTimer timer;
     QLabel* Level_Dis;
     QLabel* Score_Dis;
@@ -47,7 +44,6 @@ private:
     
     TetrisGame *game;
 
-   // void UpdateWindow();
     void drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor SquareColor);
     void UpdateNext();
 };

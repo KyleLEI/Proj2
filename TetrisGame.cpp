@@ -8,7 +8,7 @@
 
 #include "TetrisGame.h"
 
-TetrisGame::TetrisGame():isStarted(false),level(1),score(0),x(T_WIDTH/2){
+TetrisGame::TetrisGame():x(T_WIDTH/2),y(T_HEIGHT-3),isStarted(false),level(1),score(0){
     cur_blk.setRandomShape();
     nxt_blk.setRandomShape();
     clear_all();
@@ -42,7 +42,7 @@ void TetrisGame::move(op m_op){
         default:
             break;
     }
-}
+}	
 
 void TetrisGame::timerEvent(QTimerEvent *event){
     if(event->timerId()==timer->timerId()){
@@ -57,8 +57,8 @@ void TetrisGame::timerEvent(QTimerEvent *event){
 inline void TetrisGame::new_blk(){
     cur_blk=nxt_blk;
     nxt_blk.setRandomShape();
-    x=T_WIDTH/2; y=T_HEIGHT-3;
-    if(!check_clearance(cur_blk)){
+    setX(T_WIDTH/2); setY(T_HEIGHT-3);
+    if(!check_clearance(cur_blk)){//game over
         level=1;
         score=0;
         clear_all();
@@ -68,7 +68,7 @@ inline void TetrisGame::new_blk(){
 
 inline bool TetrisGame::check_clearance(int m_x,int m_y,TetrisBlocks m_blk,TetrisBlocks pre_blk){
     clear_blk(pre_blk);//remove itself before  checking
-    if(m_x+m_blk.maxX()>=T_WIDTH||m_x+m_blk.minX()<0){//check margin and prevent segfault
+    if(m_x+m_blk.maxX()>=T_WIDTH||m_x+m_blk.minX()<0){//check boundary and prevent segfault
         set_blk(pre_blk);
         return false;
     }
@@ -109,28 +109,11 @@ inline void TetrisGame::check_and_clear_row(){
             for(size_t m_x=0;m_x<T_WIDTH;++m_x)
                 for(size_t m_y=row;m_y<T_HEIGHT-1;++m_y)
                     map[m_x][m_y]=map[m_x][m_y+1];
-            row--;//decrease row to allow this row to be checked again for fullness
+            row--;//decrease row to allow this row to check recursively
         }
     }
     score+=10*combo*combo;
     set_blk(cur_blk);
-}
-
-inline void TetrisGame::clear_blk(TetrisBlocks m_blk){
-    for (int i=0;i<4;++i)
-        map[x+m_blk.x(i)][y+m_blk.y(i)]=Qt::GlobalColor::transparent;
-}
-
-inline void TetrisGame::set_blk(TetrisBlocks m_blk){
-    for (int i=0;i<4;++i)
-        map[x+m_blk.x(i)][y+m_blk.y(i)]=m_blk.getColor();
-}
-
-inline void TetrisGame::clear_all(){
-    for(size_t w=0;w<T_WIDTH;++w){
-        for(size_t h=0;h<T_HEIGHT;++h)
-            map[w][h]=Qt::GlobalColor::transparent;//transparent means empty
-    }
 }
 
 void TetrisGame::move_LR(op m_op){
@@ -138,13 +121,13 @@ void TetrisGame::move_LR(op m_op){
         if(m_op==t_left){
             if(check_clearance(x-1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
-                x--;
+                setX(x-1);
                 set_blk(cur_blk);
             }
         }else{
             if(check_clearance(x+1, y, cur_blk,cur_blk)){
                 clear_blk(cur_blk);
-                x++;
+                setX(x+1);
                 set_blk(cur_blk);
             }
         }
@@ -157,7 +140,7 @@ void TetrisGame::move_down(){
             new_blk();
         }else{
             clear_blk(cur_blk);
-            y--;
+            setY(y-1);
             set_blk(cur_blk);
         }
     }

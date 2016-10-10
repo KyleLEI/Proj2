@@ -18,7 +18,7 @@ enum TetrisShape { NoShape=0, ZShape, SShape, LineShape, TShape, SquareShape,
 class TetrisBlocks
 {
 public:
-    TetrisBlocks(){setRandomShape();}
+    TetrisBlocks(){qsrand(time(NULL));}
 
     void setRandomShape();
     void setShape(TetrisShape shape);

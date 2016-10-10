@@ -27,8 +27,6 @@ TetrisWindow::TetrisWindow(){
     
     QPainter painter_win(&image);
     painter_win.setPen(Qt::black);
-    // layout->addWidget(&frame);
-    // layout->addWidget(&next_frame);
     
     layout->addWidget(Bg_Dis);
     layout->addWidget(Next_Dis,0,1); 
@@ -42,11 +40,9 @@ TetrisWindow::TetrisWindow(){
 void TetrisWindow::keyPressEvent(QKeyEvent *event){
     switch (event->key()) {
         case Qt::Key_Left:
-            // frame.setText("Left");
             game->move(t_left);
             break;
         case Qt::Key_Right:
-            // frame.setText("Right");
             game->move(t_right);
             break;
         case Qt::Key_Down:
@@ -59,8 +55,10 @@ void TetrisWindow::keyPressEvent(QKeyEvent *event){
             game->move(t_acw);
             break;
         case Qt::Key_Up:
-            // frame.setText("Start");
             game->start();
+            break;
+        default:
+            QWidget::keyPressEvent(event);
     }
 }
 
@@ -88,31 +86,13 @@ void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor S
 {
     painter.drawRect(x, y,squareHeight-1,squareWidth-1);
     painter.fillRect(x + 1, y + 1, squareWidth - 2, squareHeight - 2, SquareColor);
-
-    //painter.setPen(Qt::black);
-    //painter.drawLine(x, y + squareHeight - 1, x, y);
-    //painter.drawLine(x, y, x + squareWidth - 1, y);
-    //painter.drawLine(x + 1, y + squareHeight - 1, x + squareWidth - 1, y + squareHeight - 1);
-    //painter.drawLine(x + squareWidth - 1, y + squareHeight - 1,x + squareWidth - 1, y + 1);
-
 }
 
 void TetrisWindow::timerEvent(QTimerEvent *event){
     if (event->timerId() == timer.timerId()) {
-
-        //        if (isWaitingAfterLine) {
-        //            isWaitingAfterLine = false;
-        //            newPiece();
-        //            timer.start(timeoutTime(), this);
-        //        } else {
-        //            oneLineDown();
-        //        }
-        
         Level_Dis->setNum(game->getLevel());
         Score_Dis->setNum(game->getScore());
         UpdateNext();
-	//UpdateWindow();
-	
     }else{
         QObject::timerEvent(event);
     }
