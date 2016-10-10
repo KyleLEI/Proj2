@@ -104,12 +104,12 @@ inline void TetrisGame::check_and_clear_row(){
         }
         
         if(isFull){//if indeed full, move everything down and start increasing combo
-            row--;//decrease row to allow this row to be checked again for fullness
             combo++;
             level++;
             for(size_t m_x=0;m_x<T_WIDTH;++m_x)
-                for(size_t m_y=0;m_y<T_HEIGHT-1;++m_y)
+                for(size_t m_y=row;m_y<T_HEIGHT-1;++m_y)
                     map[m_x][m_y]=map[m_x][m_y+1];
+            row--;//decrease row to allow this row to be checked again for fullness
         }
     }
     score+=10*combo*combo;

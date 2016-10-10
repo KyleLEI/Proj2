@@ -125,10 +125,10 @@ void TetrisWindow::paintEvent(QPaintEvent *event) {
         image.load("background.bmp");
 	QPainter painter_win(&image);
 
-	for (int i=0;i<10;i++){
-   	   for (int j=0;j<20;j++){
+    for (int i=0;i<TetrisGame::T_WIDTH;i++){
+        for (int j=0;j<TetrisGame::T_HEIGHT;j++){
         	 if (game->getMap(i,j)!=Qt::GlobalColor::transparent){
-            drawSquare(painter_win,i*squareWidth,(19-j)*squareHeight,game->getMap(i,j));
+                 drawSquare(painter_win,i*squareWidth,(TetrisGame::T_HEIGHT-1-j)*squareHeight,game->getMap(i,j));
        }
     }
  }
