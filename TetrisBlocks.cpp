@@ -75,7 +75,7 @@ int TetrisBlocks::maxY() const
 TetrisBlocks TetrisBlocks::rotatedLeft() const
 {
     TetrisBlocks result;
-    result.blockShape = blockShape;
+    result.setShape(this->blockShape);
     for (int i = 0; i < 4; ++i) {
         result.setX(i, y(i));
         result.setY(i, -x(i));
@@ -86,7 +86,7 @@ TetrisBlocks TetrisBlocks::rotatedLeft() const
 TetrisBlocks TetrisBlocks::rotatedRight() const
 {
     TetrisBlocks result;
-    result.blockShape = blockShape;
+    result.setShape(this->blockShape);
     for (int i = 0; i < 4; ++i) {
         result.setX(i, -y(i));
         result.setY(i, x(i));

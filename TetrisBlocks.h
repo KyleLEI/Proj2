@@ -19,7 +19,6 @@ class TetrisBlocks
 {
 public:
     TetrisBlocks(){setRandomShape();}
-    TetrisBlocks(TetrisShape shape) { setShape(shape); }
 
     void setRandomShape();
     void setShape(TetrisShape shape);
