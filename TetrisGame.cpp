@@ -18,6 +18,9 @@ TetrisGame::TetrisGame():x(T_WIDTH/2),y(T_HEIGHT-3),isStarted(false),level(1),sc
 void TetrisGame::start(){
     if(!isStarted){
         new_blk();
+        level=1;
+        score=0;
+        clear_all();
         timer->start(1000 - (level -1)*100, this);
         isStarted=true;
     }
@@ -59,10 +62,9 @@ inline void TetrisGame::new_blk(){
     nxt_blk.setRandomShape();
     setX(T_WIDTH/2); setY(T_HEIGHT-3);
     if(!check_clearance(cur_blk)){//game over
-        level=1;
-        score=0;
-//	qSleep(2);
-        clear_all();
+        set_blk(cur_blk);
+        isStarted=false;
+        timer->stop();
     }
     set_blk(cur_blk);
 }
@@ -106,7 +108,7 @@ inline void TetrisGame::check_and_clear_row(){
         
         if(isFull){//if indeed full, move everything down and start increasing combo
             combo++;
-            level++;
+            if(level<10) level++;
             for(size_t m_x=0;m_x<T_WIDTH;++m_x)
                 for(size_t m_y=row;m_y<T_HEIGHT-1;++m_y)
                     map[m_x][m_y]=map[m_x][m_y+1];
