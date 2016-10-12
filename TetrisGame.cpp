@@ -61,6 +61,7 @@ inline void TetrisGame::new_blk(){
     if(!check_clearance(cur_blk)){//game over
         level=1;
         score=0;
+//	qSleep(2);
         clear_all();
     }
     set_blk(cur_blk);

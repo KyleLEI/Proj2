@@ -19,6 +19,8 @@ TetrisWindow::TetrisWindow(){
     Next_Dis = new QLabel;
     Level_Dis->setText("Level");
     Score_Dis->setText("Score");
+    sprintf(Level, "%s","Level: ");
+    sprintf(Score, "%s","Score: ");
     timer.start(15,this); 
   
     image.load("background.bmp");
@@ -28,10 +30,11 @@ TetrisWindow::TetrisWindow(){
     QPainter painter_win(&image);
     painter_win.setPen(Qt::black);
     
-    layout->addWidget(Bg_Dis);
+    layout->addWidget(Bg_Dis,0,0,3,1);
     layout->addWidget(Next_Dis,0,1); 
     layout->addWidget(Level_Dis,1,1);
     layout->addWidget(Score_Dis,2,1);
+    layout->setRowStretch(0, 100);
     setLayout(layout);
 
     setWindowTitle(tr("Tetris"));
@@ -66,16 +69,17 @@ void TetrisWindow::UpdateNext(){
 
     nextPiece = game->getNextBlock();
  
-    int dx = nextPiece.maxX() - nextPiece.minX() + 1;
-    int dy = nextPiece.maxY() - nextPiece.minY() + 1;
+    //int dx = nextPiece.maxX() - nextPiece.minX() + 1;
+    //int dy = nextPiece.maxY() - nextPiece.minY() + 1;
 
-    QPixmap pixmap(dx * squareWidth, dy * squareHeight);
+    QPixmap pixmap(3 * squareWidth, 4 * squareHeight);
     QPainter painter(&pixmap);
     painter.fillRect(pixmap.rect(), Next_Dis->palette().background());
 
     for (int i = 0; i < 4; ++i) {
         int x = nextPiece.x(i) - nextPiece.minX();
-        int y = nextPiece.y(i) - nextPiece.minY();
+        int y = nextPiece.maxY() - nextPiece.y(i);
+	
         drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
     }
     Next_Dis->setPixmap(pixmap);
@@ -90,8 +94,12 @@ void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor S
 
 void TetrisWindow::timerEvent(QTimerEvent *event){
     if (event->timerId() == timer.timerId()) {
-        Level_Dis->setNum(game->getLevel());
-        Score_Dis->setNum(game->getScore());
+	
+	sprintf(Level,"%s%d","Level: ", game->getLevel());
+        Level_Dis->setText(Level);
+	sprintf(Score,"%s%d","Score: ", game->getScore());
+        Score_Dis->setText(Score);
+
         UpdateNext();
     }else{
         QObject::timerEvent(event);

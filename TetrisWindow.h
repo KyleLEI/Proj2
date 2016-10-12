@@ -30,7 +30,8 @@ public:
 protected:
     void keyPressEvent(QKeyEvent *event) Q_DECL_OVERRIDE;
     void timerEvent(QTimerEvent *event) Q_DECL_OVERRIDE;
-    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE; 
+    void paintEvent(QPaintEvent *event) Q_DECL_OVERRIDE;
+ 
 private:
     QBasicTimer timer;
     QLabel* Level_Dis;
@@ -38,6 +39,7 @@ private:
     QLabel* Bg_Dis;
     QLabel* Next_Dis;
     TetrisBlocks nextPiece;
+    char Score[9],Level[9];
     const int squareHeight = 20, squareWidth = 20;
     QImage image; 
     QPainter painter_win;    
