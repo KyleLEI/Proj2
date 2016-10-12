@@ -17,10 +17,10 @@ TetrisGame::TetrisGame():x(T_WIDTH/2),y(T_HEIGHT-3),isStarted(false),level(1),sc
 
 void TetrisGame::start(){
     if(!isStarted){
+        clear_all();
         new_blk();
         level=1;
         score=0;
-        clear_all();
         timer->start(1000 - (level -1)*100, this);
         isStarted=true;
     }
