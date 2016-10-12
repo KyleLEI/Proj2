@@ -41,7 +41,7 @@ private:
     QLabel* Next_Dis;
     TetrisBlocks nextPiece;
     QString Score,Level;
-    const int squareHeight = 20, squareWidth = 20;
+    const int squareSize= 20;
     QImage image; 
     QPainter painter_win;    
     

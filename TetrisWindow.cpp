@@ -10,8 +10,17 @@
 
 TetrisWindow::TetrisWindow(){
     
-    
-    game = new TetrisGame;
+    /*Initiallize Window*/
+    game = new TetrisGame;//Start new Game
+
+    //Initialize buffer
+    Level.sprintf("%s","Level: ");
+    Score.sprintf("%s","Score: ");
+
+    //Start Timer
+    timer.start(15,this);
+
+    /*Initialize Labels and Layout*/
     QGridLayout *layout = new QGridLayout;
     Level_Dis = new QLabel;
     Score_Dis = new QLabel;
@@ -19,17 +28,12 @@ TetrisWindow::TetrisWindow(){
     Next_Dis = new QLabel;
     Level_Dis->setText("Level");
     Score_Dis->setText("Score");
-    Level.sprintf("%s","Level: ");
-    Score.sprintf("%s","Score: ");
-    timer.start(15,this);
-    
+ 
     image.load("background.bmp");
     Bg_Dis->setPixmap(QPixmap::fromImage(image));
     Bg_Dis->show();
-    
-    QPainter painter_win(&image);
-    painter_win.setPen(Qt::black);
-    
+
+    //Layout Arrangement
     layout->addWidget(Bg_Dis,0,0,3,1);
     layout->addWidget(Next_Dis,0,1);
     layout->addWidget(Level_Dis,1,1);
@@ -39,10 +43,14 @@ TetrisWindow::TetrisWindow(){
     layout->setRowStretch(2, 30);
     setLayout(layout);
     
+    QPainter painter_win(&image);//QPainter for Drawing on board
+    painter_win.setPen(Qt::black);
+
     setWindowTitle(tr("Tetris"));
 }
 
 void TetrisWindow::keyPressEvent(QKeyEvent *event){
+    //Modify Game Status based on Keypress
     switch (event->key()) {
         case Qt::Key_Left:
             game->move(t_left);
@@ -69,9 +77,10 @@ void TetrisWindow::keyPressEvent(QKeyEvent *event){
 
 void TetrisWindow::UpdateNext(){
     
-    nextPiece = game->getNextBlock();
+    nextPiece = game->getNextBlock();//Get Next Block from Game
     
-    QPixmap pixmap(5 * squareWidth, 8 * squareHeight);
+    //Initialize Preview Window
+    QPixmap pixmap(5 * squareSize, 8 * squareSize);
     QPainter painter(&pixmap);
     painter.fillRect(pixmap.rect(), Qt::GlobalColor::white);
     
@@ -80,34 +89,35 @@ void TetrisWindow::UpdateNext(){
         int x = 2 + nextPiece.x(i);
         int y = 3 - nextPiece.y(i);
         
-        drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
-    }
+        drawSquare(painter, x * squareSize, y * squareSize, nextPiece.getColor());
+    }//Draw Next Block on Preview Window
+    
     Next_Dis->setPixmap(pixmap);
     Next_Dis->show();
 }
 
 void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor SquareColor)
 {
-    painter.drawRect(x, y,squareHeight-1,squareWidth-1);
-    painter.fillRect(x + 1, y + 1, squareWidth - 2, squareHeight - 2, SquareColor);
-}
+    painter.drawRect(x, y,squareSize-1,squareSize-1);
+    painter.fillRect(x + 1, y + 1, squareSize - 2, squareSize - 2, SquareColor);
+}//Draw a square at (x,y) of the corresponding Pixmap of QPainter and fill the square with Qt::GlobalColor
 
 void TetrisWindow::timerEvent(QTimerEvent *event){
     if (event->timerId() == timer.timerId()) {
-        
+        //Update Level and Score Labels
         Level.sprintf("%s%d","Level: ", game->getLevel());
         Level_Dis->setText(Level);
         Score.sprintf("%s%d","Score: ", game->getScore());
         Score_Dis->setText(Score);
         
-        UpdateNext();
+        UpdateNext(); //Update Preview Window
     }else{
         QObject::timerEvent(event);
     }
 }
 
 void TetrisWindow::paintEvent(QPaintEvent *event) {
-    
+    /*Update the Game Board*/
     QWidget::paintEvent(event);
     
     image.load("background.bmp");
@@ -116,10 +126,11 @@ void TetrisWindow::paintEvent(QPaintEvent *event) {
     for (int i=0;i<TetrisGame::T_WIDTH;i++){
         for (int j=0;j<TetrisGame::T_HEIGHT;j++){
             if (game->getMap(i,j)!=Qt::GlobalColor::transparent){
-                drawSquare(painter_win,i*squareWidth,(TetrisGame::T_HEIGHT-1-j)*squareHeight,game->getMap(i,j));
+                drawSquare(painter_win,i*squareSize,(TetrisGame::T_HEIGHT-1-j)*squareSize,game->getMap(i,j));
             }
         }
-    }
+    }//Get information from Game and Draw on the Board
+
     Bg_Dis->setPixmap(QPixmap::fromImage(image));     
     Bg_Dis->show();
 }
