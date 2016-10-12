@@ -72,13 +72,13 @@ void TetrisWindow::UpdateNext(){
     //int dx = nextPiece.maxX() - nextPiece.minX() + 1;
     //int dy = nextPiece.maxY() - nextPiece.minY() + 1;
 
-    QPixmap pixmap(3 * squareWidth, 4 * squareHeight);
+    QPixmap pixmap(5 * squareWidth, 8 * squareHeight);
     QPainter painter(&pixmap);
-    painter.fillRect(pixmap.rect(), Next_Dis->palette().background());
+    painter.fillRect(pixmap.rect(), Qt::GlobalColor::white);
 
     for (int i = 0; i < 4; ++i) {
-        int x = nextPiece.x(i) - nextPiece.minX();
-        int y = nextPiece.maxY() - nextPiece.y(i);
+        int x = 2 + nextPiece.x(i) - nextPiece.minX();
+        int y = 2 + nextPiece.maxY() - nextPiece.y(i);
 	
         drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
     }
