@@ -9,8 +9,8 @@
 #include "TetrisWindow.h"
 
 TetrisWindow::TetrisWindow(){
-
- 
+    
+    
     game = new TetrisGame;
     QGridLayout *layout = new QGridLayout;
     Level_Dis = new QLabel;
@@ -21,22 +21,24 @@ TetrisWindow::TetrisWindow(){
     Score_Dis->setText("Score");
     Level.sprintf("%s","Level: ");
     Score.sprintf("%s","Score: ");
-    timer.start(15,this); 
-  
+    timer.start(15,this);
+    
     image.load("background.bmp");
-    Bg_Dis->setPixmap(QPixmap::fromImage(image)); 
-    Bg_Dis->show(); 
+    Bg_Dis->setPixmap(QPixmap::fromImage(image));
+    Bg_Dis->show();
     
     QPainter painter_win(&image);
     painter_win.setPen(Qt::black);
     
     layout->addWidget(Bg_Dis,0,0,3,1);
-    layout->addWidget(Next_Dis,0,1); 
+    layout->addWidget(Next_Dis,0,1);
     layout->addWidget(Level_Dis,1,1);
     layout->addWidget(Score_Dis,2,1);
-    layout->setRowStretch(0, 100);
+    layout->setRowStretch(0, 200);
+    layout->setRowStretch(1, 10);
+    layout->setRowStretch(2, 30);
     setLayout(layout);
-
+    
     setWindowTitle(tr("Tetris"));
 }
 
@@ -66,20 +68,18 @@ void TetrisWindow::keyPressEvent(QKeyEvent *event){
 }
 
 void TetrisWindow::UpdateNext(){
-
+    
     nextPiece = game->getNextBlock();
- 
-    //int dx = nextPiece.maxX() - nextPiece.minX() + 1;
-    //int dy = nextPiece.maxY() - nextPiece.minY() + 1;
-
+    
     QPixmap pixmap(5 * squareWidth, 8 * squareHeight);
     QPainter painter(&pixmap);
     painter.fillRect(pixmap.rect(), Qt::GlobalColor::white);
-
+    
     for (int i = 0; i < 4; ++i) {
-        int x = 2 + nextPiece.x(i) - nextPiece.minX();
-        int y = 2 + nextPiece.maxY() - nextPiece.y(i);
-	
+        
+        int x = 2 + nextPiece.x(i);
+        int y = 3 - nextPiece.y(i);
+        
         drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
     }
     Next_Dis->setPixmap(pixmap);
@@ -94,12 +94,12 @@ void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor S
 
 void TetrisWindow::timerEvent(QTimerEvent *event){
     if (event->timerId() == timer.timerId()) {
-	
-	Level.sprintf("%s%d","Level: ", game->getLevel());
+        
+        Level.sprintf("%s%d","Level: ", game->getLevel());
         Level_Dis->setText(Level);
-	Score.sprintf("%s%d","Score: ", game->getScore());
+        Score.sprintf("%s%d","Score: ", game->getScore());
         Score_Dis->setText(Score);
-
+        
         UpdateNext();
     }else{
         QObject::timerEvent(event);
@@ -107,19 +107,19 @@ void TetrisWindow::timerEvent(QTimerEvent *event){
 }
 
 void TetrisWindow::paintEvent(QPaintEvent *event) {
-
-        QWidget::paintEvent(event);
-
-        image.load("background.bmp");
-	QPainter painter_win(&image);
-
+    
+    QWidget::paintEvent(event);
+    
+    image.load("background.bmp");
+    QPainter painter_win(&image);
+    
     for (int i=0;i<TetrisGame::T_WIDTH;i++){
         for (int j=0;j<TetrisGame::T_HEIGHT;j++){
-        	 if (game->getMap(i,j)!=Qt::GlobalColor::transparent){
-                 drawSquare(painter_win,i*squareWidth,(TetrisGame::T_HEIGHT-1-j)*squareHeight,game->getMap(i,j));
-       }
+            if (game->getMap(i,j)!=Qt::GlobalColor::transparent){
+                drawSquare(painter_win,i*squareWidth,(TetrisGame::T_HEIGHT-1-j)*squareHeight,game->getMap(i,j));
+            }
+        }
     }
- }
     Bg_Dis->setPixmap(QPixmap::fromImage(image));     
     Bg_Dis->show();
 }
