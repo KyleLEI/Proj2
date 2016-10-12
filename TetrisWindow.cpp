@@ -34,7 +34,9 @@ TetrisWindow::TetrisWindow(){
     layout->addWidget(Next_Dis,0,1); 
     layout->addWidget(Level_Dis,1,1);
     layout->addWidget(Score_Dis,2,1);
-    layout->setRowStretch(0, 100);
+    layout->setRowStretch(0, 200);
+    layout->setRowStretch(1, 10);
+    layout->setRowStretch(2, 30);
     setLayout(layout);
 
     setWindowTitle(tr("Tetris"));
@@ -77,8 +79,9 @@ void TetrisWindow::UpdateNext(){
     painter.fillRect(pixmap.rect(), Qt::GlobalColor::white);
 
     for (int i = 0; i < 4; ++i) {
-        int x = 2 + nextPiece.x(i) - nextPiece.minX();
-        int y = 2 + nextPiece.maxY() - nextPiece.y(i);
+        
+	int x = 2 + nextPiece.x(i);
+        int y = 3 - nextPiece.y(i);
 	
         drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
     }
