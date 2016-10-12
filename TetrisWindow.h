@@ -16,6 +16,7 @@
 #include <QtGui/QPainter>
 #include <QtWidgets/QLabel>
 #include <QtCore/QBasicTimer>
+#include <QtCore/QString>
 #include "TetrisGame.h"
 
 class TetrisGame;
@@ -39,7 +40,7 @@ private:
     QLabel* Bg_Dis;
     QLabel* Next_Dis;
     TetrisBlocks nextPiece;
-    char Score[9],Level[9];
+    QString Score,Level;
     const int squareHeight = 20, squareWidth = 20;
     QImage image; 
     QPainter painter_win;    

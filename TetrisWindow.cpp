@@ -19,8 +19,8 @@ TetrisWindow::TetrisWindow(){
     Next_Dis = new QLabel;
     Level_Dis->setText("Level");
     Score_Dis->setText("Score");
-    sprintf(Level, "%s","Level: ");
-    sprintf(Score, "%s","Score: ");
+    Level.sprintf("%s","Level: ");
+    Score.sprintf("%s","Score: ");
     timer.start(15,this); 
   
     image.load("background.bmp");
@@ -34,9 +34,7 @@ TetrisWindow::TetrisWindow(){
     layout->addWidget(Next_Dis,0,1); 
     layout->addWidget(Level_Dis,1,1);
     layout->addWidget(Score_Dis,2,1);
-    layout->setRowStretch(0, 200);
-    layout->setRowStretch(1, 10);
-    layout->setRowStretch(2, 30);
+    layout->setRowStretch(0, 100);
     setLayout(layout);
 
     setWindowTitle(tr("Tetris"));
@@ -79,9 +77,8 @@ void TetrisWindow::UpdateNext(){
     painter.fillRect(pixmap.rect(), Qt::GlobalColor::white);
 
     for (int i = 0; i < 4; ++i) {
-        
-	int x = 2 + nextPiece.x(i);
-        int y = 3 - nextPiece.y(i);
+        int x = 2 + nextPiece.x(i) - nextPiece.minX();
+        int y = 2 + nextPiece.maxY() - nextPiece.y(i);
 	
         drawSquare(painter, x * squareWidth, y * squareHeight , nextPiece.getColor());
     }
@@ -98,9 +95,9 @@ void TetrisWindow::drawSquare(QPainter &painter, int x, int y, Qt::GlobalColor S
 void TetrisWindow::timerEvent(QTimerEvent *event){
     if (event->timerId() == timer.timerId()) {
 	
-	sprintf(Level,"%s%d","Level: ", game->getLevel());
+	Level.sprintf("%s%d","Level: ", game->getLevel());
         Level_Dis->setText(Level);
-	sprintf(Score,"%s%d","Score: ", game->getScore());
+	Score.sprintf("%s%d","Score: ", game->getScore());
         Score_Dis->setText(Score);
 
         UpdateNext();
